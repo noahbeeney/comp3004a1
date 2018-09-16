@@ -28,4 +28,17 @@ public class CardTest extends TestCase{
 		assertEquals("A", card.getRank());
 		assertEquals("SA", card.toString());
 	}
+	
+	public void testEquals() {
+		Card card1 = new Card("S", "A");
+		Card card2 = new Card ("C", "K");
+		assertEquals(false, card1.equals(card2));
+		
+		card1.setSuit(card2.getSuit());
+		card1.setRank(card2.getRank());
+		assertEquals(true, card1.equals(card2));
+		
+		Card card3 = new Card("C", "K");
+		assertEquals(true, card1.equals(card3));
+	}
 }
