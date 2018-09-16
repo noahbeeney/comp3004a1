@@ -33,4 +33,12 @@ public class Card {
 	public void setRank(String rank) {
 		this.rank = rank;
 	}
+	
+	public boolean equals(Card c) { //compares two cards by string representation
+		if((this.toString()).equals(c.toString())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
