@@ -1,6 +1,8 @@
 COMP3004 Assignment 1 - Noah Beeney
 -----------------------------------
 A simple text-based blackjack game. 
+Go to comp3004a1\src\main\java\core and run main.java to run game.
+Put any input files into src\ directory.
 
 Card.java:
 - card object with suit and rank attributes
@@ -21,3 +23,16 @@ Player.java:
 - updateScore() recalculates the player's score according to the player's current hand, taking into account aces can hold a value of 1 or 11
 - updateScore() will set the score to the value of the current hand while trying to maximize (or minimize) it to 21 according to how many aces the player holds
 - getScore() updates the score and returns it
+
+BlackJack.java:
+- blackjack game obect that maintains a deck, player, and dealer
+- init() creates and shuffles deck (if console input) and deals first two cards to player and dealer
+- provides controls such as hit and stay
+- isOver() returns true if the game has a winner in its current state
+- show() prints a nice textual representation of the current game to the console
+
+main.java
+- facilitates gameplay
+- greets user
+- implements blackjack rules and turns
+- provides user interface and allows for input/output
