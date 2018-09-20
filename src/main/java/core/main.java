@@ -9,7 +9,6 @@ public class main {
 		BlackJack game = new BlackJack();
 		Scanner console = new Scanner(System.in);
 		Scanner file = null;
-		File f;
 		String inputType;
 		boolean fileInput = false;
 		String selection;
@@ -30,6 +29,7 @@ public class main {
 			} catch (FileNotFoundException e) { // can't find file; quit game
 				System.out.println("Could not find " + selection + "\n\n Quitting game...\n");
 				e.printStackTrace();
+				console.close();
 				return;
 			}
 			game.init(file); // file found, scanner open, initialize game
@@ -39,6 +39,7 @@ public class main {
 			game.init();
 		} else {
 			System.out.println("Invalid entry! Quitting game...");
+			console.close();
 			return;
 		}
 
@@ -49,7 +50,6 @@ public class main {
 			String cardStr = "";
 			if (fileInput) { // get input from file
 				selection = file.next();
-				cardStr = file.next();
 			} else { // get input from console
 				selection = console.nextLine();
 			}
@@ -57,6 +57,7 @@ public class main {
 			if (selection.equals("H") || selection.equals("h")) { // player hits
 				System.out.println("\nPlayer hits.");
 				if (fileInput) {
+					cardStr = file.next();
 					game.hit(game.getPlayer(), cardStr);
 				} else {
 					game.hit(game.getPlayer());
@@ -64,6 +65,7 @@ public class main {
 				if (game.playerScore() > 21) { // player busts; dealer automatically wins
 					System.out.println("\nPlayer busts!");
 					game.show();
+					console.close();
 					return;
 				}
 			} else if (selection.equals("S") || selection.equals("s")) { // player stands
@@ -81,14 +83,20 @@ public class main {
 		game.show();
 
 		/********** Begin dealer's turn **********/
-		//while dealer has less than 16 or dealer has soft 17
+		// while dealer has less than 16 or dealer has soft 17
 		while (game.dealerScore() <= 16 || game.dealerHasSoft17()) {
 			System.out.println("\nDealer hits.");
-			game.hit(game.getDealer());
+			if(fileInput) {
+				String cardStr = file.next();
+				game.hit(game.getDealer(), cardStr);
+			} else {
+				game.hit(game.getDealer());
+			}
 
 			if (game.dealerScore() > 21) { // dealer busts; player wins
 				System.out.println("\nDealer busts!");
 				game.show();
+				console.close();
 				return;
 			}
 			game.show();
@@ -97,6 +105,7 @@ public class main {
 		game.stand(game.getDealer());
 		/********** End dealer's turn **********/
 
+		console.close();
 		return;
 	}
 }
