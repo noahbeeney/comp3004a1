@@ -47,7 +47,7 @@ public class BlackJack {
 
 		p.addCard(c);
 
-		if (p.getScore() > 21) {
+		if (p.getScore() >= 21) {
 			playersTurn = false;
 		}
 	}
