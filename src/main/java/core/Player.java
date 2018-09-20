@@ -54,18 +54,18 @@ public class Player {
 		
 		for(int i = 0; i < hand.size(); i++) {
 			Card c = hand.get(i);
-			if(c.getRank() == "A") {
+			if(c.getRank() == "A" || c.getRank() == "A ") {
 				numAces++;
 			}
 			newScore += cardValues.get(c.getRank());
 		}
 		
 		for(int i = 0; i < numAces; i++) {	//convert any aces into 10's without exceeding a score of 21
-			if(newScore+10 > 21) {
+			if(newScore+10 <= 21) {
+				newScore += 10;
+			} else {
 				score = newScore;
 				return;
-			} else {
-				newScore += 10;
 			}
 		}
 		
